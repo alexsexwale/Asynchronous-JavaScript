@@ -1,37 +1,30 @@
-//// PART 8: Chaining Promises ////
+//// PART 9: Fetch API ////
 
-// REFERENCE: https://www.w3schools.com/js/js_promise.asp
+// REFERENCE: https://www.w3schools.com/js/js_api_fetch.asp
 
-const getTodos = (resource) => {
-    return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        // Request change means that it is going through different phases of the request, there are 4 different phases
-        request.addEventListener('readystatechange', () => {
-            if(request.readyState === 4 && request.status === 200) {
-                const data = JSON.parse(request.responseText);
-                resolve(data);
-            }
-            else if(request.readyState === 4) {
-                reject('error getting resource')
-            }
-        });
-        request.open('GET', resource);
-        request.send();
-    });
-};
+// Fetch is the newer and better way of retrieving data over the server
+
+// Please DON'T HATE ME!!!
+
+// The reason you went through the other part is so you have a much greater understanding of what happens when you make these request 
+// And understanding the history of where JavaScript started
+
+// This is the easier way of retrieving data
 
 
-// No longer get callback hell
-getTodos('todos/bob.json').then(data => {
-    console.log('promise 1 resolved:', data);
-    // The parent of the function returns a promise, which will allow us to use a .then method again
-    return getTodos('todos/lucia.json');
+// This will return a promise
+fetch('todos/bob.json').then(response => {
+    console.log('resolve', response);
+    // This method get us the data and passes it so we can use it inside our code. This returns a promise which is asychronous so we cannot save this data in a variable, 
+    // so we need to reuten it an create a .then method
+    return response.json();
 }).then(data => {
-    console.log('promise 2 resolved:', data);
-    // The parent of the function returns a promise, which will allow us to use a .then method again
-    return getTodos('todos/xolani.json');
-}).then(data => {
-    console.log('promise 3 resolved:', data);
-}).catch(err => {
-    console.log('promise rejected:', err);
+    console.log(data);
+}).catch((err) => {
+    console.log('resolve', err);
 });
+
+// Remember the three steps:
+   // 1. We fetch the data
+   // 2. We take the response
+   // 3. We return response.json() that returns a promise so we can access the data in the .then function. We can also catch the error at the end.
