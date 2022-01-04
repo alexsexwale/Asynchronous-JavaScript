@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Lionel",
+        "surname": "Messi",
+        "sport": "Soccer",
+        "sex": "male"
+    },
+    {
+        "name": "Alex",
+        "surname": "Morgan",
+        "sport": "Soccer",
+        "sex": "male"
+    },
+    {
+        "name": "Serena Williams",
+        "surname": "Williams",
+        "sport": "Tennis",
+        "sex": "female"
+    }
+]
