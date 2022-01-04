@@ -1,15 +1,10 @@
-//// PART 5: Using JSON Data ///
+//// PART 6: Callback Hell ///
 
-// JSON stands for JavaScript Object Notation
+// Callback Hell is when we nest callbacks in another callback which makes the format messy and difficult to maintain.
 
-// JSON data is string that looks like JavaScript Objects. Looks like an array of objects but we say they are strings
+// We want to make a new request after the previous request is complete, and we do this by nesting the callback function
 
-// JSON is used to send data between computers (from the server to the client)
-
-// The difference between JSON and JavaScript objects is JSON has to use double quotations (NOT SINGLE) where JavaScript Objects we can use single quotes
-//REFERENCE: https://www.w3schools.com/js/js_json_intro.asp
-
-const getTodos = (callback) => {
+const getTodos = (resource, callback) => {
     const request = new XMLHttpRequest();
 
     // Request change means that it is going through different phases of the request, there are 4 different phases
@@ -24,28 +19,27 @@ const getTodos = (callback) => {
             callback('could not fetch data', undefined);
         }
     });
-    
-    //request.open('GET', 'https://jsonplaceholder.typicode.com/todos/');
 
-    // We can access a JSON file in our file directory too
-    request.open('GET', 'todos.json');
+    request.open('GET', resource);
     request.send();
 };
 
 console.log(1);
 console.log(2);
 
-// We are creating the callback function here 
-getTodos((err, data) => {
-    console.log('callback executed');
-    // If we have an error output the error
-    if(err)
-      console.log(err);
-    // Otherwise output the data
-    else
-      console.log(data);
-    
+// We are going to request the data one at a time instead of all of them at the same time
+getTodos('todos/bob.json',(err, data) => {
+    console.log(data);
+    getTodos('todos/lucia.json',(err, data) => {
+        console.log(data);
+        getTodos('todos/xolani.json',(err, data) => {
+            console.log(data);
+        });
+    });
 });
+
+// The above is not the best way of how to write call which is why we call it Callback hell. 
+// This can be fixed using promises which we will cover in PART 7
 
 console.log(3);
 console.log(4);
