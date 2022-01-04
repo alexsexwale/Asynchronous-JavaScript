@@ -1,10 +1,4 @@
-//// PART 7: Promises ///
-
-// A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation
-
-// A promise will have one of two outcomes
-  // 1. It will be resolved meaning we get the data we want
-  // 2. It will be rejected meaning we get an error
+//// PART 8: Chaining Promises ////
 
 // REFERENCE: https://www.w3schools.com/js/js_promise.asp
 
@@ -26,44 +20,18 @@ const getTodos = (resource) => {
     });
 };
 
-console.log(1);
-console.log(2);
 
-// The above is not the best way of how to write call which is why we call it Callback hell. 
-// This can be fixed using promises which we will cover in PART 7
-
-console.log(3);
-console.log(4);
-
+// No longer get callback hell
 getTodos('todos/bob.json').then(data => {
-    console.log('promise resolved:', data);
+    console.log('promise 1 resolved:', data);
+    // The parent of the function returns a promise, which will allow us to use a .then method again
+    return getTodos('todos/lucia.json');
+}).then(data => {
+    console.log('promise 2 resolved:', data);
+    // The parent of the function returns a promise, which will allow us to use a .then method again
+    return getTodos('todos/xolani.json');
+}).then(data => {
+    console.log('promise 3 resolved:', data);
 }).catch(err => {
     console.log('promise rejected:', err);
-});
-
-
-// Promise Example
-
-const getImaginaryData = () => {
-    //resolve and rejected are functions that are built into the promise API
-    return new Promise((resolve, reject) => {
-        // fetch data
-        //resolve('imaginary data');
-        //reject('imaginary error');
-    });
-};
-// The first callback function only executes when the request is successful (uncomment resolve and comment reject to see the error)
-getImaginaryData().then((data) => {
-    console.log(data);
-}, (err) => {
-    // The second callback function only executes when the request is unsuccessful (uncomment reject and comment resolve to see the error)
-    console.log(err);
-});
-
-
-// Here is a better way to write the above code
-getImaginaryData().then(data => {
-    console.log(data);
-}).catch(err => {
-    console.log(err);
 });
