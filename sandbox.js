@@ -1,30 +1,20 @@
-//// PART 9: Fetch API ////
+//// PART 10: Async & Await ////
 
-// REFERENCE: https://www.w3schools.com/js/js_api_fetch.asp
+// Async and Await allow us to chain promises together in a clean and more readable way
 
-// Fetch is the newer and better way of retrieving data over the server
+// Async and Await is not support in Internet Explorer but works on all modern browsers
 
-// Please DON'T HATE ME!!!
+// By including the word async we are now making it an asynchronous function
+const getTodos = async () => {
+    // The await key word stops it from assigning  a value to this variable/constant until the promise has been resolved
+    const response = await fetch('todos/bob.json');
+    // We need to include the await because json() is an asynchronous function so we have to wait until the data has been retrieved
+    const data = await response.json();
+    return data;
+};
 
-// The reason you went through the other part is so you have a much greater understanding of what happens when you make these request 
-// And understanding the history of where JavaScript started
-
-// This is the easier way of retrieving data
-
-
-// This will return a promise
-fetch('todos/bob.json').then(response => {
-    console.log('resolve', response);
-    // This method get us the data and passes it so we can use it inside our code. This returns a promise which is asychronous so we cannot save this data in a variable, 
-    // so we need to reuten it an create a .then method
-    return response.json();
-}).then(data => {
-    console.log(data);
-}).catch((err) => {
-    console.log('resolve', err);
-});
-
-// Remember the three steps:
-   // 1. We fetch the data
-   // 2. We take the response
-   // 3. We return response.json() that returns a promise so we can access the data in the .then function. We can also catch the error at the end.
+console.log(1);
+console.log(2);
+getTodos().then(data => console.log('resolved:', data));
+console.log(3);
+console.log(4);
