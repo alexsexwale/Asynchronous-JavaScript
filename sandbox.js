@@ -1,12 +1,14 @@
-/// PART 1: How Asynchronous works ///
-console.log(1);
-console.log(2);
+//// PART 11: Throwing Errors ////
 
-// We are waiting 2 seconds before the function executes
-setTimeout(() => {
-    console.log('callback function executed')
-}, 2000);
+const getTodos = async () => {
+    const response = await fetch('todoss/bob.json');
+    if(response.status !== 200) {
+        throw new Error('Cannot fetch the data');
+    }
+    const data = await response.json();
+    return data;
+};
 
-console.log(3);
-console.log(4);
-
+getTodos()
+    .then(data => console.log('resolved:', data))
+    .catch(err => console.log('rejected:', err.message));

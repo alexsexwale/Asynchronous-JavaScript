@@ -1,0 +1,11 @@
+[
+    {
+        "action": "sleep", "name": "Bob"
+    },
+    {
+        "action": "drink", "name": "Bob"
+    },
+    {
+        "action": "eat", "name": "Bob"
+    }
+]
